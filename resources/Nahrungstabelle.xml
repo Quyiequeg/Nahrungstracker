@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <food>
-    <nutrient id="n1">
-        <name>Heidelbeeren</name>
-        <carbs>6</carbs>
-        <fat>0.6</fat>
-        <saturated>0</saturated>
-        <unsaturated>0</unsaturated>
-        <protein>0.6</protein>
-        <fibres>5</fibres>
+    <nutrient name ="Heidelbeeren">
+        <carbs value = "6" />
+        <fat value = "0.6" />
+        <saturated value = "0" />
+        <unsaturated value = "0" />
+        <protein value = "0.6" />
+        <fibres value = "5" />
     </nutrient>
 </food>

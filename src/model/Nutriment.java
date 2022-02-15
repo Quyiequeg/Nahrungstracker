@@ -1,5 +1,7 @@
 package model;
 
+
+
 public class Nutriment {
     private String name;
     private double carbs;
