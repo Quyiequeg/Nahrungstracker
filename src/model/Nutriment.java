@@ -9,7 +9,7 @@ public class Nutriment {
     final double fatCal = 9.1;
     private double cKal;
 
-    public Nutriment(String name, double carbs, double fat, double protein) {
+    public Nutriment(String name, double carbs, double fat, double saturated, double nonSaturated, double protein, double fibres) {
         this.setName(name);
         this.setCarbs(carbs);
         this.setFat(fat);

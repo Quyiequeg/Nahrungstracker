@@ -19,14 +19,14 @@ import javax.xml.stream.events.XMLEvent;
  * Diese Klasse implementiert die Grundlage für einen einfachen XML Parser, der
  * Nährwerte für einen Nährwertrechner parst.
  */
-public class XMLParser {
+public class MyXMLParser {
 	public static void main(final String[] args) {
 		if (args.length > 0) {
 			File xmlDatei = new File(args[0]);
 			if (xmlDatei.exists()) {
-				XMLParser xmlParser = new XMLParser(xmlDatei);
-				xmlParser.initParser();
-				xmlParser.parse();
+				MyXMLParser myXmlParser = new MyXMLParser(xmlDatei);
+				myXmlParser.initParser();
+				myXmlParser.parse();
 			} else {
 				System.err.println("Die Datei " + xmlDatei.getAbsolutePath()
 						+ " wurde nicht gefunden!");
@@ -37,18 +37,74 @@ public class XMLParser {
 	}
 
 	private File xmlDatei;
+	private XMLEventReader xmlParser = null;
+	private String lastId = null;
 
-	public XMLParser(final File xml) {
+	public MyXMLParser(final File xml) {
 		super();
 
 		this.xmlDatei = xml;
 	}
 
 	public final void initParser() {
+		try {
+			InputStream dateiEingabeStrom = new FileInputStream(xmlDatei);
+			XMLInputFactory factory = XMLInputFactory.newInstance();
+			try {
+				xmlParser = factory.createXMLEventReader(dateiEingabeStrom);
 
+			} catch (XMLStreamException e) {
+				System.err
+						.println("XML Verarbeitungsfehler: " + e.getMessage());
+				e.printStackTrace();
+			}
+		} catch (FileNotFoundException e) {
+			System.err.println("Die Datei wurde nicht gefunden! "
+					+ e.getMessage());
+		}
 	}
 
 	public final void parse() {
+		while (xmlParser.hasNext()) {
+			try {
+				XMLEvent event = xmlParser.nextEvent();
+				switch (event.getEventType()) {
+				case XMLStreamConstants.START_ELEMENT:
+					handleStartEvent(event);
+					break;
+				case XMLStreamConstants.END_ELEMENT:
+					String name = event.asEndElement().getName().toString()
+							.toLowerCase();
+					if (name.equals("initialmarking")) {
+						isInitialMarking = false;
+						// ----------------
+					} else if (name.equals("name")) {
+						isName = false;
 
+					} else if (name.equals("text")) {
+						isText = false;
+						// ----------------
+					}
+					break;
+				case XMLStreamConstants.CHARACTERS:
+					if (isText && lastId != null) {
+						Characters ch = event.asCharacters();
+						if (!ch.isWhiteSpace()) {
+							handleText(ch.getData());
+						}
+					}
+					break;
+				case XMLStreamConstants.END_DOCUMENT:
+					// schließe den Parser
+					xmlParser.close();
+					break;
+				default:
+				}
+			} catch (XMLStreamException e) {
+				System.err.println("Fehler beim Parsen des PNML Dokuments. "
+						+ e.getMessage());
+				e.printStackTrace();
+			}
+		}	
 	}
 }
