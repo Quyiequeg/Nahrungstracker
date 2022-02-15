@@ -1,17 +1,20 @@
 package model;
 
 public class Nutriment {
-	private String name;
+    private String name;
     private double carbs;
     private double fat;
     private double protein;
+    final double overallCal = 4.1;
+    final double fatCal = 9.1;
+    private double cKal;
 
     public Nutriment(String name, double carbs, double fat, double protein) {
-		this.setName(name);
-		this.setCarbs(carbs);
-		this.setFat(fat);
-		this.setProtein(protein);
-	}
+        this.setName(name);
+        this.setCarbs(carbs);
+        this.setFat(fat);
+        this.setProtein(protein);
+    }
 
     public double getProtein() {
         return protein;
@@ -45,7 +48,8 @@ public class Nutriment {
         this.name = name;
     }
 
-    public void calcKiloCalories(){
-        
+    public double calcKiloCalories(double carbs, double fat, double protein) {
+        cKal = fat * fatCal + (carbs + protein) * overallCal;
+        return cKal;
     }
 }
