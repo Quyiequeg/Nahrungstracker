@@ -34,6 +34,7 @@ public class MyXMLParser {
 						if(details.getNodeType() == Node.ELEMENT_NODE){
 							Element detailElement = (Element) details;
 							System.out.println(detailElement.getTagName() + " " + detailElement.getAttribute("value"));
+							//getElementsByTagName(("carbs").item(i).getTextcontent());
 						}
 					}
 				}
