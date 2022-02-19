@@ -7,6 +7,9 @@ public class Nutriment {
     private double carbs;
     private double fat;
     private double protein;
+    private double nonSaturated;
+    private double saturated;
+    private double fibres;
     final double overallCal = 4.1;
     final double fatCal = 9.1;
     private double cKal;
@@ -16,6 +19,9 @@ public class Nutriment {
         this.setCarbs(carbs);
         this.setFat(fat);
         this.setProtein(protein);
+        this.setSaturated(saturated);
+        this.setNonSaturated(nonSaturated);
+        this.setFibres(fibres);
     }
 
     public double getProtein() {
@@ -50,7 +56,31 @@ public class Nutriment {
         this.name = name;
     }
 
-    public double calcKiloCalories(double carbs, double fat, double protein) {
+    public double getSaturated() {
+        return saturated;
+    }
+
+    public void setSaturated(double saturated) {
+        this.saturated = saturated;
+    }
+
+    public double getNonSaturated() {
+        return nonSaturated;
+    }
+
+    public void setNonSaturated(double nonSaturated) {
+        this.nonSaturated = nonSaturated;
+    }
+
+    public double getFibres() {
+        return fibres;
+    }
+
+    public void setFibres(double fibres) {
+        this.fibres = fibres;
+    }
+
+    public double calKiloCalories(double carbs, double fat, double protein) {
         cKal = fat * fatCal + (carbs + protein) * overallCal;
         return cKal;
     }

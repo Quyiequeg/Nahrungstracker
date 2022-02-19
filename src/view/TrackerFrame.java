@@ -1,10 +1,13 @@
 package view;
 
 import javax.swing.*;
+
+import model.MyXMLWriter;
+import model.Nutriment;
+
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.awt.event.*;
+import java.io.File;
 
 public class TrackerFrame extends JFrame {
     private static final long serialVersionUID = 1L;
@@ -13,8 +16,7 @@ public class TrackerFrame extends JFrame {
     public JTextArea textPane;
     private JToolBar toolBar;
     private JButton retrieveBtn = new JButton("Setze Parameter");
-    List<Float> firstParameterList = new ArrayList<>();
-    List<Float> secParameterList = new ArrayList<>();
+    private File xmlDatei = new File("resources\\Nahrungstabelle.xml");
 
     public TrackerFrame(String title) {
         super(title);
@@ -53,7 +55,11 @@ public class TrackerFrame extends JFrame {
         toolBar.add(retrieveBtn);
         retrieveBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
-
+                Nutriment nutriment = new Nutriment("Erdbeere", 1, 2, 3, 4, 5, 6);
+                MyXMLWriter writer = new MyXMLWriter(xmlDatei);
+                writer.setNutriment(nutriment);
+                writer.initParser();
+                
             }
         });
         this.add(toolBar, BorderLayout.NORTH);
@@ -66,7 +72,7 @@ public class TrackerFrame extends JFrame {
 
     }
 
-    private void setText(String text) {
+    public void setText(String text) {
         textPane.append(text);
     }
 }

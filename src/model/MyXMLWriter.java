@@ -1,14 +1,7 @@
 package model;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.beans.XMLEncoder;
-import java.beans.XMLDecoder;
-
-import javax.naming.spi.DirStateFactory.Result;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -22,86 +15,111 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Text;
+import org.xml.sax.SAXException;
+
+import view.TrackerFrame;
 
 public class MyXMLWriter {
+    private Nutriment elementToAdd;
+    private File xmlDatei;
+    private Element root;
 
     public static void main(String[] args) {
-        String path = "resources\\Nahrungstabelle.xml";
-        File xmlDatei = new File(path);
+        if (args.length > 0) {
+			File xmlDatei = new File(args[0]);
+			if (xmlDatei.exists()) {
+				MyXMLWriter xmlWriter = new MyXMLWriter(xmlDatei);
+                xmlWriter.initParser();
+			} else {
+				System.err.println("Die Datei " + xmlDatei.getAbsolutePath()
+						+ " wurde nicht gefunden!");
+			}
+		} else {
+			System.out.println("Bitte eine Datei als Parameter angeben!");
+		}
+	}
+        
+    
+
+    public MyXMLWriter(final File xml){
+        super();
+        this.xmlDatei = xml;
+    }
+
+    public final void initParser(){
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-        try {
+            try {
             DocumentBuilder builder = dbf.newDocumentBuilder();
-            Document doc = builder.newDocument(); // create temp
-
-            // create root node
-            Element root = doc.createElement("food");
-
-            // create nutrient
-            Element nutrient = doc.createElement("nutrient");
-
-            // create nutrientvalue
-            Element name = doc.createElement("name");
-            Text nameValue = doc.createTextNode("data");
-            name.appendChild(nameValue);
-            // create nutrientvalue
-            Element carbs = doc.createElement("carbs");
-            Text carbValue = doc.createTextNode("data");
-            carbs.appendChild(carbValue);
-            // create nutrientvalue
-            Element fat = doc.createElement("fat");
-            Text fatvalue = doc.createTextNode("data");
-            fat.appendChild(fatvalue);
-            // create nutrientvalue
-            Element saturated = doc.createElement("saturated");
-            Text satValue = doc.createTextNode("data");
-            saturated.appendChild(satValue);
-            // create nutrientvalue
-            Element unsaturated = doc.createElement("unsaturated");
-            Text unSatValue = doc.createTextNode("data");
-            unsaturated.appendChild(unSatValue);
-            // create nutrientvalue
-            Element protein = doc.createElement("protein");
-            Text protValue = doc.createTextNode("data");
-            protein.appendChild(protValue);
-            // create nutrientvalue
-            Element fibres = doc.createElement("fibres");
-            Text fibValue = doc.createTextNode("data");
-            fibres.appendChild(fibValue);
-
-            // add to nutrient node
-            nutrient.appendChild(name);
-            nutrient.appendChild(carbs);
-            nutrient.appendChild(fat);
-            nutrient.appendChild(saturated);
-            nutrient.appendChild(unsaturated);
-            nutrient.appendChild(protein);
-            nutrient.appendChild(fibres);
-
-            // add nutrient to root
-            root.appendChild(nutrient);
-
-            // add root to document
-            doc.appendChild(root);
-
-            // write temp from memory to file
-
+            Document doc = builder.parse(xmlDatei);
+            root = doc.getDocumentElement();
+            write(elementToAdd, doc);
             DOMSource source = new DOMSource(doc);
             // create resultstream
             StreamResult result = new StreamResult(xmlDatei);
             TransformerFactory tff = TransformerFactory.newInstance();
             Transformer transformer = tff.newTransformer();
-            transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION,  "no");
-            transformer.setOutputProperty(OutputKeys.INDENT,  "yes");
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             transformer.transform(source, result);
-            System.out.println("write data success to file: " + path);
+            
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
         } catch (TransformerConfigurationException e){
             e.printStackTrace();
         } catch (TransformerException e) {
             e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
         }
 
+    }
+    
+
+    public void write(Nutriment nutriment, Document doc){
+        // create nutrient
+        Element newNutrient = doc.createElement("nutrient");
+
+        Element name = doc.createElement("name");
+        name.appendChild(doc.createTextNode(nutriment.getName()));
+        newNutrient.appendChild(name);
+
+        // create carbelement
+        Element carbs = doc.createElement("carbs");
+        carbs.appendChild(doc.createTextNode(Double.toString(nutriment.getCarbs())));
+        newNutrient.appendChild(carbs);
+
+        // create nutrientvalue
+        Element fat = doc.createElement("fat");
+        fat.appendChild(doc.createTextNode(Double.toString(nutriment.getFat())));
+        newNutrient.appendChild(fat);
+
+        // create nutrientvalue
+        Element saturated = doc.createElement("saturated");
+        saturated.appendChild(doc.createTextNode(Double.toString(nutriment.getSaturated())));
+        newNutrient.appendChild(saturated);
+
+        // create nutrientvalue
+        Element nonSaturated = doc.createElement("unsaturated");
+        nonSaturated.appendChild(doc.createTextNode(Double.toString(nutriment.getNonSaturated())));
+        newNutrient.appendChild(nonSaturated);
+
+        // create nutrientvalue
+        Element protein = doc.createElement("protein");
+        protein.appendChild(doc.createTextNode(Double.toString(nutriment.getProtein())));
+        newNutrient.appendChild(protein);
+
+        // create nutrientvalue
+        Element fibres = doc.createElement("fibres");
+        fibres.appendChild(doc.createTextNode(Double.toString(nutriment.getFibres())));
+        newNutrient.appendChild(fibres);
+
+        root.appendChild(newNutrient);
+    }
+
+    public void setNutriment(Nutriment nutriment){
+        elementToAdd = nutriment;
     }
 }

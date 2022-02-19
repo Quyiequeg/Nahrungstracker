@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <food>
     <nutrient>
-        <name>data</name>
-        <carbs>data</carbs>
-        <fat>data</fat>
-        <saturated>data</saturated>
-        <unsaturated>data</unsaturated>
-        <protein>data</protein>
-        <fibres>data</fibres>
+        <name>Heidelbeeren</name>
+        <carbs>1.1</carbs>
+        <fat>1</fat>
+        <saturated>2</saturated>
+        <unsaturated>3</unsaturated>
+        <protein>4</protein>
+        <fibres>5</fibres>
+    </nutrient>
+    <nutrient>
+        <name>Spinat</name>
+        <carbs>1.2</carbs>
+        <fat>6</fat>
+        <saturated>7</saturated>
+        <unsaturated>8</unsaturated>
+        <protein>9</protein>
+        <fibres>99</fibres>
     </nutrient>
 </food>
