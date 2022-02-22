@@ -17,8 +17,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
-import view.TrackerFrame;
-
 public class MyXMLWriter {
     private Nutriment elementToAdd;
     private File xmlDatei;
