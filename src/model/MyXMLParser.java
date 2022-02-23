@@ -67,6 +67,7 @@ public class MyXMLParser {
 
 	private void parseDetails(NodeList nutriDetails) {
 		Nutriment nutriment = new Nutriment("dummy", 0, 0, 0, 0, 0, 0);
+		boolean elementReady = false;
 		for (int j = 0; j < nutriDetails.getLength(); j++) {
 			Node details = nutriDetails.item(j);
 			if (details.getNodeName().equals("name")) {
@@ -97,8 +98,11 @@ public class MyXMLParser {
 			} else if (details.getNodeName().equals("fibres")) {
 				double dbl = Double.parseDouble(details.getTextContent());
 				nutriment.setFibres(dbl);
+				elementReady = true;
 			}
-			setHashMap(nutrimentMap, nutriment);
+			if (elementReady == true){
+				setHashMap(nutrimentMap, nutriment);
+			}
 		}
 
 	}

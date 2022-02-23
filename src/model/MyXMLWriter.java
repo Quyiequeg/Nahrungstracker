@@ -56,7 +56,6 @@ public class MyXMLWriter {
             StreamResult result = new StreamResult(xmlDatei);
             TransformerFactory tff = TransformerFactory.newInstance();
             Transformer transformer = tff.newTransformer();
-            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             transformer.transform(source, result);
             
         } catch (ParserConfigurationException e) {

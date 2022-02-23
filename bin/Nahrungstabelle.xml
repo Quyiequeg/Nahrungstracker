@@ -1,21 +1,2 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<food>
-    <nutrient>
-        <name>Heidelbeeren</name>
-        <carbs>1.1</carbs>
-        <fat>1</fat>
-        <saturated>2</saturated>
-        <unsaturated>3</unsaturated>
-        <protein>4</protein>
-        <fibres>5</fibres>
-    </nutrient>
-    <nutrient>
-        <name>Spinat</name>
-        <carbs>1.2</carbs>
-        <fat>6</fat>
-        <saturated>7</saturated>
-        <unsaturated>8</unsaturated>
-        <protein>9</protein>
-        <fibres>99</fibres>
-    </nutrient>
-</food>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><food>
+<nutrient><name>Erdbeere</name><carbs>1.0</carbs><fat>2.0</fat><saturated>3.0</saturated><unsaturated>4.0</unsaturated><protein>5.0</protein><fibres>6.0</fibres></nutrient></food>
