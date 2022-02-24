@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><food>
-<nutrient><name>Erdbeere</name><carbs>1.0</carbs><fat>2.0</fat><saturated>3.0</saturated><unsaturated>4.0</unsaturated><protein>5.0</protein><fibres>6.0</fibres></nutrient></food>
+<nutrient><name>Erdbeere</name><carbs>1.0</carbs><fat>2.0</fat><saturated>3.0</saturated><unsaturated>4.0</unsaturated><protein>5.0</protein><fibres>6.0</fibres></nutrient><nutrient><name>Spinat</name><carbs>0.6</carbs><fat>0.3</fat><saturated>0.0</saturated><unsaturated>0.0</unsaturated><protein>2.7</protein><fibres>2.6</fibres></nutrient><nutrient><name>Schwarzwurzel</name><carbs>1.6</carbs><fat>0.4</fat><saturated>0.0</saturated><unsaturated>0.0</unsaturated><protein>1.4</protein><fibres>17.0</fibres></nutrient></food>

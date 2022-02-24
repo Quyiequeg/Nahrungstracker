@@ -19,7 +19,7 @@ public class TrackerFrame extends JFrame {
     private static final long serialVersionUID = 1L;
     private JComboBox<String> mapItems;
     private JSplitPane mainPanel, workspacePanel;
-    private JPanel writerPanel, nutriPanel;
+    private JPanel writerPanel, nutriPanel, writerTable;
     public JTextArea textPane;
     private JToolBar nutriToolBar, writerToolBar, textToolBar;
     private JButton saveBtn = new JButton("Nahrungsmittel speichern");
@@ -27,6 +27,8 @@ public class TrackerFrame extends JFrame {
     private File xmlDatei = new File("resources\\Nahrungstabelle.xml");
     private HashMap<String, Nutriment> nutrimentMap = new HashMap<>();
     private Set<String> mapKeys;
+    private JLabel iName, iCarbs, iFat, iSaturated, iUnsaturated, iProtein, iFibres;
+    private JTextField tName, tCarbs, tFat, tSaturated, tUnsaturated, tProtein, tFibres;
     
     public TrackerFrame(String title) {
         super(title);
@@ -59,8 +61,11 @@ public class TrackerFrame extends JFrame {
         textPane = new JTextArea();
         writerPanel = new JPanel(new BorderLayout());
         nutriPanel = new JPanel(new BorderLayout());
+        writerTable = new JPanel(new GridLayout(7, 2));
+        writerPanel.add(writerTable);
         workspacePanel = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, nutriPanel, writerPanel);
         mainPanel = new JSplitPane(JSplitPane.VERTICAL_SPLIT, workspacePanel, textPane);
+        createWriterInput();
         textPane.setEditable(false);
         textPane.setLineWrap(true);
         textPane.setFont(new Font("Courier New", Font.PLAIN, 10));
@@ -113,9 +118,16 @@ public class TrackerFrame extends JFrame {
         writerToolBar.add(saveBtn);
         saveBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
+                String name = tName.getText();
+                Double carbs = Double.parseDouble(tCarbs.getText().replace(",", "."));
+                Double fat = Double.parseDouble(tFat.getText().replace(",", "."));
+                Double saturated = Double.parseDouble(tSaturated.getText().replace(",", "."));
+                Double unsaturated = Double.parseDouble(tUnsaturated.getText().replace(",", "."));
+                Double protein = Double.parseDouble(tProtein.getText().replace(",", "."));
+                Double fibres = Double.parseDouble(tFibres.getText().replace(",", "."));
                 boolean successfulWriting = false;
                 try {
-                    Nutriment nutriment = new Nutriment("Erdbeere", 1, 2, 3, 4, 5, 6);
+                    Nutriment nutriment = new Nutriment(name, carbs, fat, saturated, unsaturated, protein, fibres);
                     MyXMLWriter writer = new MyXMLWriter(xmlDatei);
                     writer.setNutriment(nutriment);
                     writer.initParser();
@@ -145,5 +157,39 @@ public class TrackerFrame extends JFrame {
         Vector<String> dummyVector = new Vector<>(mapKeys);
         mapItems = new JComboBox<String>(dummyVector);
         nutriPanel.add(mapItems, BorderLayout.NORTH);
+    }
+
+    private void createWriterInput(){
+        // label erzeugen
+        iName = new JLabel("Name");
+        tName = new JTextField();
+        iCarbs = new JLabel("Kohlenhydrate");
+        tCarbs = new JTextField();
+        iFat = new JLabel("Fett");
+        tFat = new JTextField();
+        iSaturated = new JLabel("gesättigt");
+        tSaturated = new JTextField();
+        iUnsaturated = new JLabel("ungesättigt");
+        tUnsaturated = new JTextField();
+        iProtein = new JLabel("Eiweiß");
+        tProtein = new JTextField();
+        iFibres = new JLabel("Ballaststoffe");
+        tFibres = new JTextField();
+
+        // label hinzufügen
+        writerTable.add(iName);
+        writerTable.add(tName);
+        writerTable.add(iCarbs);
+        writerTable.add(tCarbs);
+        writerTable.add(iFat);
+        writerTable.add(tFat);
+        writerTable.add(iSaturated);
+        writerTable.add(tSaturated);
+        writerTable.add(iUnsaturated);
+        writerTable.add(tUnsaturated);
+        writerTable.add(iProtein);
+        writerTable.add(tProtein);
+        writerTable.add(iFibres);
+        writerTable.add(tFibres);
     }
 }
