@@ -1,20 +1,19 @@
 package model;
 
-
-
 public class Nutriment {
     private String name;
-    private double carbs;
-    private double fat;
-    private double protein;
-    private double nonSaturated;
-    private double saturated;
-    private double fibres;
+    private Double carbs;
+    private Double fat;
+    private Double protein;
+    private Double nonSaturated;
+    private Double saturated;
+    private Double fibres;
     final double overallCal = 4.1;
     final double fatCal = 9.1;
     private double cKal;
 
-    public Nutriment(String name, double carbs, double fat, double saturated, double nonSaturated, double protein, double fibres) {
+    public Nutriment(String name, double carbs, double fat, double saturated, double nonSaturated, double protein,
+            double fibres) {
         this.setName(name);
         this.setCarbs(carbs);
         this.setFat(fat);
@@ -24,7 +23,7 @@ public class Nutriment {
         this.setFibres(fibres);
     }
 
-    public double getProtein() {
+    public Double getProtein() {
         return protein;
     }
 
@@ -32,7 +31,7 @@ public class Nutriment {
         this.protein = protein;
     }
 
-    public double getFat() {
+    public Double getFat() {
         return fat;
     }
 
@@ -40,7 +39,7 @@ public class Nutriment {
         this.fat = fat;
     }
 
-    public double getCarbs() {
+    public Double getCarbs() {
         return carbs;
     }
 
@@ -56,7 +55,7 @@ public class Nutriment {
         this.name = name;
     }
 
-    public double getSaturated() {
+    public Double getSaturated() {
         return saturated;
     }
 
@@ -64,7 +63,7 @@ public class Nutriment {
         this.saturated = saturated;
     }
 
-    public double getNonSaturated() {
+    public Double getNonSaturated() {
         return nonSaturated;
     }
 
@@ -72,7 +71,7 @@ public class Nutriment {
         this.nonSaturated = nonSaturated;
     }
 
-    public double getFibres() {
+    public Double getFibres() {
         return fibres;
     }
 
@@ -80,8 +79,38 @@ public class Nutriment {
         this.fibres = fibres;
     }
 
-    public double calKiloCalories(double carbs, double fat, double protein) {
-        cKal = fat * fatCal + (carbs + protein) * overallCal;
+    public double calKiloCalories() {
+        cKal = this.getFat() * fatCal + (this.getCarbs() + this.getProtein()) * overallCal;
         return cKal;
+    }
+
+    public Double getQCarbs(Double quantity) {
+        Double qMacros = this.getCarbs() * (quantity / 100);
+        return qMacros;
+    }
+
+    public Double getQFat(Double quantity) {
+        Double qMacros = this.getFat() * (quantity / 100);
+        return qMacros;
+    }
+
+    public Double getQProtein(Double quantity) {
+        Double qMacros = this.getProtein() * (quantity / 100);
+        return qMacros;
+    }
+
+    public Double getQSaturated(Double quantity) {
+        Double qMacros = this.getSaturated() * (quantity / 100);
+        return qMacros;
+    }
+
+    public Double getQUnsaturated(Double quantity) {
+        Double qMacros = this.getNonSaturated() * (quantity / 100);
+        return qMacros;
+    }
+
+    public Double getQFibres(Double quantity) {
+        Double qMacros = this.getFibres() * (quantity / 100);
+        return qMacros;
     }
 }
